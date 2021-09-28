@@ -6,10 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
-/**
- * tá brabo
- */
-
 class JobController extends Controller
 {
     /**

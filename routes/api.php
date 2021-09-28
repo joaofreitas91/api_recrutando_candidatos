@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\CandidacyController;
+use App\Http\Controllers\api\CandidateController;
+use App\Http\Controllers\api\JobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +22,12 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('/v1')->group(function () {
-    Route::namespace('App\Http\Controllers\Api')->group(function () {
-        Route::prefix('/vagas')->group(function () {
-            Route::apiResource('/', 'JobController');
-            Route::get('/{idJob}/candidaturas/ranking', ['App\Http\Controllers\Api\CandidacyController', 'ranking']);
-        });
-        Route::apiResource('pessoas', 'CandidateController');
-        Route::apiResource('vagas', 'JobController');
-        Route::apiResource('candidaturas', 'CandidacyController');
+
+    Route::prefix('/vagas')->group(function () {
+        Route::apiResource('/', JobController::class);
+        Route::get('/{idJob}/candidaturas/ranking', [CandidacyController::class, 'ranking']);
     });
+    Route::apiResource('pessoas', CandidateController::class);
+    Route::apiResource('vagas', JobController::class);
+    Route::apiResource('candidaturas', CandidacyController::class);
 });
